@@ -21,3 +21,14 @@ body {
   height: 500px;
   width: 500px;
 }
+
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  calender head, håller år (månad?) @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+#calender-head div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* vet inte om vi ska kunna bläddra bland åren här eler hur vi tänker bara lagt dem her tillfälligt */
+.nav-arrow {
+  text-decoration: none;
+}
