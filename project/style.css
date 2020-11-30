@@ -23,14 +23,39 @@ body {
 }
 
 /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  Design för Månader @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
-#month {
+#month h1, p{
+  padding: 0;
+  margin: 0;
+}
+
+#calender-head {
   width: 100%;
   height: 10rem;
   background-color: #393e46;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   /*padding: 0;*/
   text-align: center;
   color: #c7c5c5;
+  flex-direction: column;
+  padding: 0%;
+  margin: 0%;
+}
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  calender head, håller år (månad?) @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+#calender-head div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* vet inte om vi ska kunna bläddra bland åren här eler hur vi tänker bara lagt dem her tillfälligt */
+.nav-arrow {
+  text-decoration: none;
+}
+
+.weekDays {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2%;
 }
