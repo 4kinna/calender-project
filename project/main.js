@@ -1,4 +1,26 @@
 "use strict";
+const date = new Date();
+
+let months = [
+    "January",
+    "February",
+    "Mars",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "Novemeber",
+    "December",
+];
+
+document.querySelector(".date h1").innerHTML = months[date.getMonth()];
+
+
+
+
 
 //Variable year håller constructor function Date() =2020 aktuellt år
 let currentYear = new Date().getFullYear();
