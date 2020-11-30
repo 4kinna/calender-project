@@ -11,3 +11,22 @@ function showCalender() {
 
 //Kallar functionen så året blir synligt
 showCalender();
+
+//----------------------------------------------------------
+// bättre att lägga till de via html direkt.....//Abbas
+/* let days = [
+  "Måndag",
+  "tisdag",
+  "onsdag",
+  "torsdag",
+  "fredag",
+  "lördag",
+  "Söndag",
+];
+
+for (let index = 0; index < days.length; index++) {
+  document
+    .querySelector(".weekDays")
+    .insertAdjacentHTML("beforeend", `<div>${days[index]}<div/>`);
+}
+ */
