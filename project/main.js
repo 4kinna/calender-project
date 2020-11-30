@@ -1,6 +1,11 @@
 "use strict";
 const date = new Date();
 
+//Variable year håller constructor function Date() =2020 aktuellt år
+let currentYear = new Date().getFullYear();
+
+let monthModified = date.getMonth() + 1; // Ger månadernas indexnummer 0-11. +1 gör att månaderna får det värde som behövs i andra uträkningar.
+
 let months = [
     "January",
     "February",
@@ -22,8 +27,7 @@ document.querySelector(".date h1").innerHTML = months[date.getMonth()];
 
 
 
-//Variable year håller constructor function Date() =2020 aktuellt år
-let currentYear = new Date().getFullYear();
+
 
 //functionen tilldelar värdet i currentYear till id "year" i index.html
 function showCalender() {
@@ -52,3 +56,43 @@ for (let index = 0; index < days.length; index++) {
     .insertAdjacentHTML("beforeend", `<div>${days[index]}<div/>`);
 }
  */
+// Räknar ut hur många dagar det finns i denna månad.
+function totalDaysInMonthFunc(monthModified, year) {
+    return new Date(year, monthModified, -0).getDate();
+  }
+  
+  // Tar reda på vilken vilket index den första vexkodagen i månaden har, 0=söndag.
+  var day = new Date(currentYear + "-" + monthModified + "-01").getDay();
+  
+  // Om första dagen i månaden är en söndag.
+  if (day === 0) {
+    for (let index = 0; index < 6; index++) {
+      let newDiv = document.createElement("div");
+      let textInDiv = document.createTextNode(" ");
+      newDiv.appendChild(textInDiv);
+      let element = document.getElementById("days-number-id");
+      element.appendChild(newDiv);
+    }
+  } else {
+    for (let index = day; index > 1; index--) {
+      let newDiv = document.createElement("div");
+      let textInDiv = document.createTextNode(" ");
+      newDiv.appendChild(textInDiv);
+      let element = document.getElementById("days-number-id");
+      element.appendChild(newDiv);
+    }
+  }
+  
+  // Skapar månadens alla dagar (nummer)
+  for (
+    let index = 1;
+    index <= totalDaysInMonthFunc(monthModified, currentYear);
+    index++
+  ) {
+    let newDiv = document.createElement("div");
+    let textInDiv = document.createTextNode([index]);
+    newDiv.appendChild(textInDiv);
+    let element = document.getElementById("days-number-id");
+    element.appendChild(newDiv);
+  }
+  
