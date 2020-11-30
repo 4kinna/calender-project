@@ -59,3 +59,20 @@ body {
   align-items: center;
   padding: 2%;
 }
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  Design för nummer (antal dagar i månaden) @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+.days-number {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px;
+}
+
+.days-number div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  width: calc(
+    500px / 7
+  ); /* Kontrollera beräkningen, 500/7 är fel. Måste dra av för padding*/
+}
