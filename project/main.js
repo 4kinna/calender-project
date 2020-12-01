@@ -61,7 +61,7 @@ navmonth[0].addEventListener("click", function () {
         showCalanderDays();
     } else {
         thisMonth = 11;
-        element.innerHTML = "";
+        
         monthModified = thisMonth + 1;
         element.innerHTML = "";
         showCalanderDays();
@@ -73,13 +73,13 @@ navmonth[0].addEventListener("click", function () {
 navmonth[1].addEventListener("click", function () {
     if (thisMonth !== 11) {
         thisMonth++;
-        element.innerHTML = "";
+       
         monthModified = thisMonth + 1;
         element.innerHTML = "";
         showCalanderDays();
     }else{
         thisMonth = 0;
-        element.innerHTML = "";
+       
         monthModified = thisMonth + 1;
         element.innerHTML = "";
         showCalanderDays();
