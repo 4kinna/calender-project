@@ -54,7 +54,6 @@ function changeYear(subAdd) {
 
 
 navmonth[0].addEventListener("click", function () {
-    console.log(thisMonth);
     if (thisMonth !== 0) {
         thisMonth--;
        monthModified = thisMonth + 1;
