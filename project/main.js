@@ -10,34 +10,34 @@ let dateToday = date.getDate();
 
 let thisMonth = date.getMonth();
 
+let monthHeader = document.querySelector(".date h1");
+let navmonth = document.querySelectorAll(".nav-arrow");
+
 let months = [
-  "January",
-  "February",
-  "Mars",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "Novemeber",
-  "December",
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
 ];
 
 
-//thisMonth-= 3;
-console.log('minus ' + months[thisMonth]);
 
-//thisMonth++;
-console.log('plus ' + months[thisMonth]);
-
-    
 //ta det steg för steg, börja med knappen så att den ändrar i loggen  
-document.querySelector(".date h1").innerHTML = months[thisMonth];
+//document.querySelector(".date h1").innerHTML = months[thisMonth];
 
 
 
+
+//flyttade ut staffans element då jag behöver tillgång i changeYear
+let element = document.getElementById("days-number-id");
 
 //functionen tilldelar värdet i currentYear till id "year" i index.html
 function showCalender() {
@@ -45,8 +45,61 @@ function showCalender() {
     yearP.innerHTML = currentYear;
 }
 
+//ändra år
+function changeYear(subAdd) {
+    if (subAdd === "sub") {
+        currentYear--;
+        element.innerHTML = ""; //nollställer kalendernumrena
+        showCalender(showCalanderDays());
+    } else {
+        currentYear += 1;
+        element.innerHTML = "";
+        showCalender(showCalanderDays());
+    }
+}
+//ändrar månader
+
+
+navmonth[0].addEventListener("click", function () {
+    console.log(thisMonth);
+    if (thisMonth !== 0) {
+        thisMonth--;
+       monthModified = thisMonth + 1;
+       element.innerHTML = ""; 
+        showCalanderDays();
+    } else {
+        thisMonth = 11;
+       monthModified = thisMonth;
+    } 
+    monthHeader.innerHTML = months[thisMonth];
+
+});
+
+navmonth[1].addEventListener("click", function () {
+    if (thisMonth !== 11) {
+        thisMonth++;
+        element.innerHTML = "";
+        monthModified = thisMonth + 1;
+        element.innerHTML = "";
+        showCalanderDays();
+    }else{
+        thisMonth = 0;
+    }
+    monthHeader.innerHTML = months[thisMonth];
+});
+
+
+//functionen tilldelar värdet i thisMonth till classnamn "date" i index.html
+    monthHeader.innerHTML = months[thisMonth];
+
+
 //Kallar functionen så året blir synligt
 showCalender();
+showCalanderDays();
+
+
+
+
 
 //----------------------------------------------------------
 // bättre att lägga till de via html direkt.....//Abbas
@@ -69,49 +122,50 @@ for (let index = 0; index < days.length; index++) {
 
 // Räknar ut hur många dagar det finns i denna månad.
 function totalDaysInMonthFunc(monthModified, year) {
-  return new Date(year, monthModified, -0).getDate();
+    return new Date(year, monthModified, -0).getDate();
 }
 
-// Tar reda på vilken vilket index den första vexkodagen i månaden har, 0=söndag.
+// Tar reda på vilken vilket index den första veckodagen i månaden har, 0=söndag.
 function day() {
-  return new Date(currentYear + "-" + monthModified + "-01").getDay();
+    return new Date(currentYear + "-" + monthModified + "-01").getDay();
 }
 
 // Skapar en div för varje dag (nummren) och tilldelar dem ett id-nummer och innehåll
 function daysToCalendar(dayId, text) {
-  let newDiv = document.createElement("div");
-  newDiv.setAttribute("id", dayId);
-  let textInDiv = document.createTextNode(text);
-  newDiv.appendChild(textInDiv);
-  let element = document.getElementById("days-number-id");
-  element.appendChild(newDiv);
+    let newDiv = document.createElement("div");
+    newDiv.setAttribute("id", dayId);
+    let textInDiv = document.createTextNode(text);
+    newDiv.appendChild(textInDiv);
+    element.appendChild(newDiv);
 }
 
 function blankDaysId(dayId) {
-  return "last-month-day-id" + dayId;
+    return "last-month-day-id" + dayId;
 }
+function showCalanderDays() {
+    // Om första dagen i månaden är en söndag.
+    if (day() === 0) {
+        for (let index = 0; index < 6; index++) {
+            daysToCalendar(blankDaysId([index]), " ");
+        }
+    } else {
+        for (let index = day(); index > 1; index--) {
+            daysToCalendar(blankDaysId([index]), " ");
+        }
+    }
 
-// Om första dagen i månaden är en söndag.
-if (day() === 0) {
-  for (let index = 0; index < 6; index++) {
-    daysToCalendar(blankDaysId([index]), " ");
-  }
-} else {
-  for (let index = day(); index > 1; index--) {
-    daysToCalendar(blankDaysId([index]), " ");
-  }
+    // Skapar månadens alla dagar (nummer)
+    for (
+        let index = 1;
+        index <= totalDaysInMonthFunc(monthModified, currentYear);
+        index++
+    ) {
+        let dayNumberId = "this-number-id" + [index];
+        daysToCalendar(dayNumberId, [index]);
+    }
+
+    // Markera dagens dag
+    document.getElementById("this-number-id" + dateToday).style.backgroundColor =
+        "green";
 }
-
-// Skapar månadens alla dagar (nummer)
-for (
-  let index = 1;
-  index <= totalDaysInMonthFunc(monthModified, currentYear);
-  index++
-) {
-  let dayNumberId = "this-number-id" + [index];
-  daysToCalendar(dayNumberId, [index]);
-}
-
-// Markera dagens dag
-document.getElementById("this-number-id" + dateToday).style.backgroundColor =
-  "red";
+//
