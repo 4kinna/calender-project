@@ -29,13 +29,6 @@ let months = [
 ];
 
 
-
-//ta det steg för steg, börja med knappen så att den ändrar i loggen  
-//document.querySelector(".date h1").innerHTML = months[thisMonth];
-
-
-
-
 //flyttade ut staffans element då jag behöver tillgång i changeYear
 let element = document.getElementById("days-number-id");
 
