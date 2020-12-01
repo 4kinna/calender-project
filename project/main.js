@@ -54,7 +54,6 @@ function changeYear(subAdd) {
 
 
 navmonth[0].addEventListener("click", function () {
-    console.log(thisMonth);
     if (thisMonth !== 0) {
         thisMonth--;
        monthModified = thisMonth + 1;
@@ -62,7 +61,10 @@ navmonth[0].addEventListener("click", function () {
         showCalanderDays();
     } else {
         thisMonth = 11;
-       monthModified = thisMonth;
+        element.innerHTML = "";
+        monthModified = thisMonth + 1;
+        element.innerHTML = "";
+        showCalanderDays();
     } 
     monthHeader.innerHTML = months[thisMonth];
 
@@ -77,6 +79,10 @@ navmonth[1].addEventListener("click", function () {
         showCalanderDays();
     }else{
         thisMonth = 0;
+        element.innerHTML = "";
+        monthModified = thisMonth + 1;
+        element.innerHTML = "";
+        showCalanderDays();
     }
     monthHeader.innerHTML = months[thisMonth];
 });
