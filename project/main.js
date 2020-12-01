@@ -25,14 +25,31 @@ let months = [
 
 document.querySelector(".date h1").innerHTML = months[date.getMonth()];
 
+//flyttade ut staffans element då jag behöver tillgång i changeYear
+let element = document.getElementById("days-number-id");
+
 //functionen tilldelar värdet i currentYear till id "year" i index.html
 function showCalender() {
   let yearP = document.getElementById("year");
   yearP.innerHTML = currentYear;
 }
 
+//ändra år
+function changeYear(subAdd) {
+  if (subAdd === "sub") {
+    currentYear--;
+    element.innerHTML = ""; //nollställer kalendernumrena
+    showCalender(showCalanderDays());
+  } else {
+    currentYear += 1;
+    element.innerHTML = "";
+    showCalender(showCalanderDays());
+  }
+}
+
 //Kallar functionen så året blir synligt
 showCalender();
+showCalanderDays();
 
 //----------------------------------------------------------
 // bättre att lägga till de via html direkt.....//Abbas
@@ -69,35 +86,35 @@ function daysToCalendar(dayId, text) {
   newDiv.setAttribute("id", dayId);
   let textInDiv = document.createTextNode(text);
   newDiv.appendChild(textInDiv);
-  let element = document.getElementById("days-number-id");
   element.appendChild(newDiv);
 }
 
 function blankDaysId(dayId) {
   return "last-month-day-id" + dayId;
 }
-
-// Om första dagen i månaden är en söndag.
-if (day() === 0) {
-  for (let index = 0; index < 6; index++) {
-    daysToCalendar(blankDaysId([index]), " ");
+function showCalanderDays() {
+  // Om första dagen i månaden är en söndag.
+  if (day() === 0) {
+    for (let index = 0; index < 6; index++) {
+      daysToCalendar(blankDaysId([index]), " ");
+    }
+  } else {
+    for (let index = day(); index > 1; index--) {
+      daysToCalendar(blankDaysId([index]), " ");
+    }
   }
-} else {
-  for (let index = day(); index > 1; index--) {
-    daysToCalendar(blankDaysId([index]), " ");
+
+  // Skapar månadens alla dagar (nummer)
+  for (
+    let index = 1;
+    index <= totalDaysInMonthFunc(monthModified, currentYear);
+    index++
+  ) {
+    let dayNumberId = "this-number-id" + [index];
+    daysToCalendar(dayNumberId, [index]);
   }
-}
 
-// Skapar månadens alla dagar (nummer)
-for (
-  let index = 1;
-  index <= totalDaysInMonthFunc(monthModified, currentYear);
-  index++
-) {
-  let dayNumberId = "this-number-id" + [index];
-  daysToCalendar(dayNumberId, [index]);
+  // Markera dagens dag
+  document.getElementById("this-number-id" + dateToday).style.backgroundColor =
+    "red";
 }
-
-// Markera dagens dag
-document.getElementById("this-number-id" + dateToday).style.backgroundColor =
-  "red";

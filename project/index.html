@@ -1,51 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-  <html>
-    <head>
-      <meta charset="utf-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <title></title>
-      <meta name="description" content="" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <link rel="stylesheet" href="./style.css" />
-    </head>
+<html>
 
-    <body>
-      <div class="main-container">
-        <!-- calender är klassen som håller kalendern -->
-        <div class="calender">
-          <!-- headern för våran kalender -->
-          <div id="calender-head">
-            <!-- MÅNAD???? -->
-            <div id="month">
-              <div class="date">
-                <h1></h1>
-              </div>
-            </div>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title></title>
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
 
-            <!-- År  -->
-            <div>
-              <a href="#" class="previous nav-arrow">&#8249;</a>
-              <p id="year"></p>
-              <a href="#" class="next nav-arrow">&#8250;</a>
-            </div>
+<body>
+  <div class="main-container">
+    <!-- calender är klassen som håller kalendern -->
+    <div class="calender">
+      <!-- headern för våran kalender -->
+      <div id="calender-head">
+        <!-- MÅNAD???? -->
+        <div id="month">
+          <div class="date">
+            <h1></h1>
           </div>
+        </div>
 
-          <div class="weekDays">
-            <div>Måndag</div>
-            <div>Tisdag</div>
-            <div>Onsdag</div>
-            <div>Torsdag</div>
-            <div>Fredag</div>
-            <div>Lördag</div>
-            <div>Söndag</div>
-          </div>
-          <!-- daysNumber är där dagarna 1-månadsslut skapas från javascript -->
-          <div class="days-number" id="days-number-id"></div>
+        <!-- År  -->
+        <div>
+          <i class="nav-arrow" onclick="changeYear('sub')">
+            &lt; </i>
+          <p id="year"></p>
+          <i class="nav-arrow" onclick="changeYear('add')">&gt;</i>
+
         </div>
       </div>
 
-      <script src="./main.js" defer></script>
-    </body>
-  </html>
+      <div class="weekDays">
+        <div>Måndag</div>
+        <div>Tisdag</div>
+        <div>Onsdag</div>
+        <div>Torsdag</div>
+        <div>Fredag</div>
+        <div>Lördag</div>
+        <div>Söndag</div>
+      </div>
+      <!-- daysNumber är där dagarna 1-månadsslut skapas från javascript -->
+      <div class="days-number" id="days-number-id"></div>
+    </div>
+  </div>
+
+  <script src="./main.js" defer></script>
+</body>
+
+</html>
+
 </html>
