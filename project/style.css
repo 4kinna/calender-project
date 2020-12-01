@@ -42,6 +42,12 @@ body {
   padding: 0%;
   margin: 0%;
 }
+
+.prev{
+  color: aliceblue;
+  font-size: 2rem;
+}
+
 /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  calender head, håller år (månad?) @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
 #calender-head div {
   display: flex;
