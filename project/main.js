@@ -8,7 +8,9 @@ let monthModified = date.getMonth() + 1;
 let dateToday = date.getDate();
 let thisMonth = date.getMonth();
 let monthHeader = document.querySelector(".date h1");
-let navmonth = document.querySelectorAll(".nav-arrow");
+let navmonth = document.querySelectorAll(".changeMonth");
+let changeYear = document.getElementsByClassName("changeYear");
+let yearHeader = document.getElementById("year");
 
 let months = [
   "January",
@@ -35,21 +37,22 @@ function showCalender() {
 }
 
 //ändra år
-function changeYear(subAdd) {
-  if (subAdd === "sub") {
-    currentYear--;
-    element.innerHTML = ""; //nollställer kalendernumrena
-    showCalender(showCalanderDays());
-    hover_window();
-  } else {
-    currentYear += 1;
-    element.innerHTML = "";
-    showCalender(showCalanderDays());
-    hover_window();
-  }
-}
-//ändrar månader
+changeYear[0].addEventListener("click", function () {
+  currentYear--;
+  element.innerHTML = "";
+  showCalanderDays();
+  hover_window();
+  yearHeader.innerHTML = currentYear;
+});
+changeYear[1].addEventListener("click", function () {
+  currentYear++;
+  element.innerHTML = ""; //nollställer kalendernumrena
+  showCalanderDays();
+  hover_window();
+  yearHeader.innerHTML = currentYear;
+});
 
+//ändrar månader
 navmonth[0].addEventListener("click", function () {
   if (thisMonth !== 0) {
     thisMonth--;
@@ -71,7 +74,6 @@ navmonth[0].addEventListener("click", function () {
 navmonth[1].addEventListener("click", function () {
   if (thisMonth !== 11) {
     thisMonth++;
-
     monthModified = thisMonth + 1;
     element.innerHTML = "";
     showCalanderDays();
