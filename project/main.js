@@ -41,14 +41,14 @@ changeYear[0].addEventListener("click", function () {
   currentYear--;
   element.innerHTML = "";
   showCalanderDays();
-  hover_window();
+  hoverWindow();
   yearHeader.innerHTML = currentYear;
 });
 changeYear[1].addEventListener("click", function () {
   currentYear++;
   element.innerHTML = ""; //nollställer kalendernumrena
   showCalanderDays();
-  hover_window();
+  hoverWindow();
   yearHeader.innerHTML = currentYear;
 });
 
@@ -59,14 +59,14 @@ navmonth[0].addEventListener("click", function () {
     monthModified = thisMonth + 1;
     element.innerHTML = "";
     showCalanderDays();
-    hover_window();
+    hoverWindow();
   } else {
     thisMonth = 11;
 
     monthModified = thisMonth + 1;
     element.innerHTML = "";
     showCalanderDays();
-    hover_window();
+    hoverWindow();
   }
   monthHeader.innerHTML = months[thisMonth];
 });
@@ -77,14 +77,14 @@ navmonth[1].addEventListener("click", function () {
     monthModified = thisMonth + 1;
     element.innerHTML = "";
     showCalanderDays();
-    hover_window();
+    hoverWindow();
   } else {
     thisMonth = 0;
 
     monthModified = thisMonth + 1;
     element.innerHTML = "";
     showCalanderDays();
-    hover_window();
+    hoverWindow();
   }
   monthHeader.innerHTML = months[thisMonth];
 });
@@ -142,7 +142,7 @@ function showCalanderDays() {
 
   // Markera dagens dag
   document.getElementById("this-number-id" + dateToday).style.backgroundColor =
-    "green";
+    "red";
 }
 //
 
@@ -175,7 +175,7 @@ let hidden = document.querySelectorAll(".hidden");
 let closeModal = document.querySelector(".close-modal");
 let overlay = document.querySelector(".overlay");
 
-function hover_window() {
+function hoverWindow() {
   for (
     let index = 1;
     index <= totalDaysInMonthFunc(monthModified, currentYear);
@@ -189,9 +189,12 @@ function hover_window() {
       }
     });
 
-    click.addEventListener("mouseover", function () {
-      click.style.backgroundColor = "green";
-    });
+    if (click.textContent != dateToday) {
+      click.addEventListener("mouseover", function () {
+        click.style.backgroundColor = "green";
+      });
+    }
+
     if (click.textContent != dateToday) {
       click.addEventListener("mouseout", function () {
         click.style.backgroundColor = " rgb(226, 226, 226)";
@@ -208,7 +211,7 @@ function hover_window() {
   closeModal.addEventListener("click", close);
   overlay.addEventListener("click", close);
 }
-hover_window();
+hoverWindow();
 
 //----------------------------------------------------------
 //----------------------------------------------------------
