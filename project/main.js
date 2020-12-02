@@ -206,6 +206,7 @@ function hover_window() {
   closeModal.addEventListener("click", close);
   overlay.addEventListener("click", close);
 }
+hover_window();
 
 //----------------------------------------------------------
 //----------------------------------------------------------
