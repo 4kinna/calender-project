@@ -1,15 +1,12 @@
 "use strict";
-const date = new Date();
 
+const date = new Date();
 //Variable year håller constructor function Date() =2020 aktuellt år
 let currentYear = new Date().getFullYear();
-
-let monthModified = date.getMonth() + 1; // Ger månadernas indexnummer 0-11. +1 gör att månaderna får det värde som behövs i andra uträkningar.
-
+// Ger månadernas indexnummer 0-11. +1 gör att månaderna får det värde som behövs i andra uträkningar.
+let monthModified = date.getMonth() + 1;
 let dateToday = date.getDate();
-
 let thisMonth = date.getMonth();
-
 let monthHeader = document.querySelector(".date h1");
 let navmonth = document.querySelectorAll(".nav-arrow");
 
@@ -43,10 +40,12 @@ function changeYear(subAdd) {
     currentYear--;
     element.innerHTML = ""; //nollställer kalendernumrena
     showCalender(showCalanderDays());
+    hover_window();
   } else {
     currentYear += 1;
     element.innerHTML = "";
     showCalender(showCalanderDays());
+    hover_window();
   }
 }
 //ändrar månader
@@ -57,11 +56,14 @@ navmonth[0].addEventListener("click", function () {
     monthModified = thisMonth + 1;
     element.innerHTML = "";
     showCalanderDays();
+    hover_window();
   } else {
     thisMonth = 11;
+
     monthModified = thisMonth + 1;
     element.innerHTML = "";
     showCalanderDays();
+    hover_window();
   }
   monthHeader.innerHTML = months[thisMonth];
 });
@@ -73,12 +75,14 @@ navmonth[1].addEventListener("click", function () {
     monthModified = thisMonth + 1;
     element.innerHTML = "";
     showCalanderDays();
+    hover_window();
   } else {
     thisMonth = 0;
 
     monthModified = thisMonth + 1;
     element.innerHTML = "";
     showCalanderDays();
+    hover_window();
   }
   monthHeader.innerHTML = months[thisMonth];
 });
@@ -89,25 +93,6 @@ monthHeader.innerHTML = months[thisMonth];
 //Kallar functionen så året blir synligt
 showCalender();
 showCalanderDays();
-
-//----------------------------------------------------------
-// bättre att lägga till de via html direkt.....//Abbas
-/* let days = [
-  "Måndag",
-  "tisdag",
-  "onsdag",
-  "torsdag",
-  "fredag",
-  "lördag",
-  "Söndag",
-];
-
-for (let index = 0; index < days.length; index++) {
-  document
-    .querySelector(".weekDays")
-    .insertAdjacentHTML("beforeend", `<div>${days[index]}<div/>`);
-}
- */
 
 // Räknar ut hur många dagar det finns i denna månad.
 function totalDaysInMonthFunc(monthModified, year) {
@@ -158,3 +143,72 @@ function showCalanderDays() {
     "green";
 }
 //
+
+//----------------------------------------------------------
+//----------------------------------------------------------
+//--------------------Abbas--------------------------
+//----------------------------------------------------------
+//----------------------------------------------------------
+// bättre att lägga till de via html direkt.....//Abbas
+/* let days = [
+  "Måndag",
+  "tisdag",
+  "onsdag",
+  "torsdag",
+  "fredag",
+  "lördag",
+  "Söndag",
+];
+
+for (let index = 0; index < days.length; index++) {
+  document
+    .querySelector(".weekDays")
+    .insertAdjacentHTML("beforeend", `<div>${days[index]}<div/>`);
+}
+ */
+
+// CLICK on a day
+
+let hidden = document.querySelectorAll(".hidden");
+let closeModal = document.querySelector(".close-modal");
+let overlay = document.querySelector(".overlay");
+
+function hover_window() {
+  for (
+    let index = 1;
+    index <= totalDaysInMonthFunc(monthModified, currentYear);
+    index++
+  ) {
+    let click = document.querySelector(`#this-number-id${index}`);
+    console.log(click);
+    click.addEventListener("click", function () {
+      for (let i = 0; i < hidden.length; i++) {
+        hidden[i].style.display = "block";
+      }
+    });
+
+    click.addEventListener("mouseover", function () {
+      click.style.backgroundColor = "green";
+    });
+    if (click.textContent != dateToday) {
+      click.addEventListener("mouseout", function () {
+        click.style.backgroundColor = " rgb(226, 226, 226)";
+      });
+    }
+  }
+
+  function close() {
+    for (let i = 0; i < hidden.length; i++) {
+      hidden[i].style.display = "none";
+    }
+  }
+
+  closeModal.addEventListener("click", close);
+  overlay.addEventListener("click", close);
+}
+
+//----------------------------------------------------------
+//----------------------------------------------------------
+//--------------------Abbas--------------------------
+//----------------------------------------------------------
+//----------------------------------------------------------
