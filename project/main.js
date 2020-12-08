@@ -139,13 +139,29 @@ function showCalanderDays() {
     let dayNumberId = "this-number-id" + [index];
     daysToCalendar(dayNumberId, [index]);
   }
-
   // Markera dagens dag
-  document.getElementById("this-number-id" + dateToday).style.backgroundColor =
-    "red";
+  if (date.getFullYear() === currentYear && date.getMonth() === thisMonth) {
+    document.getElementById(
+      "this-number-id" + dateToday
+    ).style.backgroundColor = "red";
+  }
 }
-//
 
+// Markera dag som har en händele med hjälp av "this-number id+[index]"
+function markDay(thisDay) {
+  console.log("in funktion " + thisDay);
+  document.getElementById(thisDay).style.backgroundColor = "yellow";
+}
+
+// Simulerar input från kalenderbladet
+let mark = document.getElementById("this-number-id5").id;
+markDay(mark);
+let mark1 = document.getElementById("this-number-id10").id;
+markDay(mark1);
+let mark2 = document.getElementById("this-number-id24").id;
+markDay(mark2);
+
+//
 //----------------------------------------------------------
 //----------------------------------------------------------
 //--------------------Abbas--------------------------
