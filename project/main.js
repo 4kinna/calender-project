@@ -2,7 +2,7 @@
 
 const date = new Date();
 //Variable year håller constructor function Date() =2020 aktuellt år
-let currentYear = new Date().getFullYear();
+let currentYear = date.getFullYear();
 // Ger månadernas indexnummer 0-11. +1 gör att månaderna får det värde som behövs i andra uträkningar.
 let monthModified = date.getMonth() + 1;
 let dateToday = date.getDate();
@@ -62,11 +62,13 @@ navmonth[0].addEventListener("click", function () {
     hoverWindow();
   } else {
     thisMonth = 11;
+    currentYear--;
 
     monthModified = thisMonth + 1;
     element.innerHTML = "";
     showCalanderDays();
     hoverWindow();
+    yearHeader.innerHTML = currentYear;
   }
   monthHeader.innerHTML = months[thisMonth];
 });
@@ -80,11 +82,13 @@ navmonth[1].addEventListener("click", function () {
     hoverWindow();
   } else {
     thisMonth = 0;
+    currentYear++;
 
     monthModified = thisMonth + 1;
     element.innerHTML = "";
     showCalanderDays();
     hoverWindow();
+    yearHeader.innerHTML = currentYear;
   }
   monthHeader.innerHTML = months[thisMonth];
 });
@@ -119,6 +123,8 @@ function blankDaysId(dayId) {
   return "last-month-day-id" + dayId;
 }
 function showCalanderDays() {
+  const aktivYear = date.getFullYear();
+  const aktivMonth = date.getMonth();
   // Om första dagen i månaden är en söndag.
   if (day() === 0) {
     for (let index = 0; index < 6; index++) {
@@ -141,8 +147,12 @@ function showCalanderDays() {
   }
 
   // Markera dagens dag
-  document.getElementById("this-number-id" + dateToday).style.backgroundColor =
-    "red";
+  //Lagt till villkor för att aktiv dag inte ska synas varje månad om det inet är aktuell månad och år /annika
+  if (aktivYear === currentYear && aktivMonth === thisMonth) {
+    document.getElementById(
+      "this-number-id" + dateToday
+    ).style.backgroundColor = "red";
+  }
 }
 //
 
