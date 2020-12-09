@@ -223,6 +223,7 @@ function hoverWindow() {
         }
 
         let halfAnHour = document.getElementsByClassName("halfAnHour");
+
         for (let index = 0; index < halfAnHour.length; index++) {
           halfAnHour[index].addEventListener("dblclick", function () {
             let input = prompt("enter something");
