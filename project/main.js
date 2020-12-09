@@ -196,6 +196,7 @@ for (let index = 0; index < days.length; index++) {
 let hidden = document.querySelectorAll(".hidden");
 let closeModal = document.querySelector(".close-modal");
 let overlay = document.querySelector(".overlay");
+let modal = document.querySelector(".dayHours");
 
 function hoverWindow() {
   for (
@@ -204,10 +205,51 @@ function hoverWindow() {
     index++
   ) {
     let click = document.querySelector(`#this-number-id${index}`);
-    console.log(click);
+
     click.addEventListener("click", function () {
       for (let i = 0; i < hidden.length; i++) {
         hidden[i].style.display = "block";
+        modal.innerHTML = "";
+        //Events after click on a day
+        for (
+          let index = 1;
+          index <= totalDaysInMonthFunc(monthModified, currentYear);
+          index++
+        ) {
+          modal.insertAdjacentHTML(
+            "beforeend",
+            "<div class=timme ><div class=eventTime ></div><div class=EventText ><div class=halfAnHour ></div><div class=halfAnHour ></div></div></div>"
+          );
+        }
+
+        let halfAnHour = document.getElementsByClassName("halfAnHour");
+
+        for (let index = 0; index < halfAnHour.length; index++) {
+          halfAnHour[index].addEventListener("dblclick", function () {
+            let input = prompt("enter something");
+
+            if (input !== null) {
+              localStorage.setItem(index, input);
+              halfAnHour[index].textContent = localStorage.getItem(index);
+            }
+          });
+
+          halfAnHour[index].textContent = localStorage.getItem(index);
+        }
+
+        for (let index = 0; index < halfAnHour.length; index++) {
+          halfAnHour[index].addEventListener("click", function () {
+            halfAnHour[index].textContent = localStorage.removeItem(index);
+          });
+        }
+
+        for (
+          let index = 0;
+          index <= totalDaysInMonthFunc(monthModified, currentYear) - 1;
+          index++
+        ) {
+          document.querySelectorAll(".eventTime")[index].textContent = index;
+        }
       }
     });
 

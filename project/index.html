@@ -1,62 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<html>
+  <html>
+    <head>
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <title></title>
+      <meta name="description" content="" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="./style.css" />
+    </head>
 
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title></title>
-  <meta name="description" content="" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="./style.css" />
-</head>
+    <body>
+      <div class="main-container">
+        <!-- calender är klassen som håller kalendern -->
+        <div class="calender">
+          <!-- headern för våran kalender -->
+          <div id="calender-head">
+            <!-- MÅNAD???? -->
+            <div id="month">
+              <div class="date">
+                <i class="nav-arrow changeMonth">&lt;</i>
+                <h1></h1>
+                <i class="nav-arrow changeMonth">&gt;</i>
+              </div>
+            </div>
 
-<body>
-  <div class="main-container">
-    <!-- calender är klassen som håller kalendern -->
-    <div class="calender">
-      <!-- headern för våran kalender -->
-      <div id="calender-head">
-        <!-- MÅNAD???? -->
-        <div id="month">
-          <div class="date">
-            <i class="nav-arrow changeMonth">&lt;</i>
-            <h1></h1>
-            <i class="nav-arrow changeMonth">&gt;</i>
+            <!-- År  -->
+            <div>
+              <i class="nav-arrow changeYear">&lt; </i>
+              <p id="year"></p>
+              <i class="nav-arrow changeYear">&gt;</i>
+            </div>
           </div>
-        </div>
 
-        <!-- År  -->
-        <div>
-          <i class="nav-arrow changeYear">&lt; </i>
-          <p id="year"></p>
-          <i class="nav-arrow changeYear">&gt;</i>
+          <div class="weekDays">
+            <div>Måndag</div>
+            <div>Tisdag</div>
+            <div>Onsdag</div>
+            <div>Torsdag</div>
+            <div>Fredag</div>
+            <div>Lördag</div>
+            <div>Söndag</div>
+          </div>
+          <!-- daysNumber är där dagarna 1-månadsslut skapas från javascript -->
+          <div class="days-number" id="days-number-id"></div>
         </div>
       </div>
 
-      <div class="weekDays">
-        <div>Måndag</div>
-        <div>Tisdag</div>
-        <div>Onsdag</div>
-        <div>Torsdag</div>
-        <div>Fredag</div>
-        <div>Lördag</div>
-        <div>Söndag</div>
+      <div class="modal hidden">
+        <h3>dblclick för att lägga till ---- click för att ta bort</h3>
+        <button class="close-modal">&times;</button>
+        <div class="dayHours"></div>
       </div>
-      <!-- daysNumber är där dagarna 1-månadsslut skapas från javascript -->
-      <div class="days-number" id="days-number-id"></div>
-    </div>
-  </div>
+      <div class="overlay hidden"></div>
 
-  <div class="modal hidden">
-    <button class="close-modal">&times;</button>
-    <h1>Hey baby, vad vill du planera nu då? 😍</h1>
-  </div>
-  <div class="overlay hidden"></div>
-
-  <script src="./main.js" defer></script>
-</body>
-
-</html>
-
+      <script src="./main.js" defer></script>
+    </body>
+  </html>
 </html>
