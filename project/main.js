@@ -160,12 +160,12 @@ function markDay(thisDay) {
 }
 
 // Simulates input from the calendar sheet
-let mark = document.getElementById("this-number-id5").id;
+/* let mark = document.getElementById("this-number-id5").id;
 markDay(mark);
 let mark1 = document.getElementById("this-number-id10").id;
 markDay(mark1);
 let mark2 = document.getElementById("this-number-id24").id;
-markDay(mark2);
+markDay(mark2); */
 
 // Generates the date in the day view
 function dateToCalederDay(clicktDay) {
@@ -242,23 +242,28 @@ function hoverWindow() {
         }
 
         let hour = document.getElementsByClassName("hour");
+        let todayDateId = currentYear + "-" + thisMonth + "-" + click.textContent;
 
         for (let index = 0; index < hour.length; index++) {
           hour[index].addEventListener("dblclick", function () {
             let input = prompt("enter something");
 
+            
             if (input !== null) {
-              localStorage.setItem(index, input);
-              hour[index].textContent = localStorage.getItem(index);
+              localStorage.setItem(todayDateId + "-" + index, input,);
+              hour[index].textContent = localStorage.getItem(todayDateId + "-" + index);
+              //let markEvent = document.getElementById("this-number-id" + click.textContent).style.border = "solid yellow 1px";
+
+
             }
           });
 
-          hour[index].textContent = localStorage.getItem(index);
+          hour[index].textContent = localStorage.getItem(todayDateId + "-" + index);
         }
 
         for (let index = 0; index < hour.length; index++) {
           hour[index].addEventListener("click", function () {
-            hour[index].textContent = localStorage.removeItem(index);
+            hour[index].textContent = localStorage.removeItem(todayDateId + "-" + index);
           });
         }
         // handels timetable
