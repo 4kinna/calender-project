@@ -295,9 +295,11 @@ function hoverWindow() {
           "20.30",
           "21:00",
         ];
-        for (let index = 0; index <= timeTable.length; index++) {
-          const timeLable = document.querySelectorAll(".eventTime");
-          timeLable[index].textContent = timeTable[index];
+        for (let tt = 0; tt <= timeTable.length; tt++) {
+          let timeLable = document.querySelectorAll(".eventTime");
+          if (timeLable[tt] !== undefined) {
+            timeLable[tt].textContent = timeTable[tt];
+          }
         }
       }
     });
