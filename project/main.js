@@ -152,7 +152,7 @@ function showCalanderDays() {
     ).style.backgroundColor = "red";
   }
 }
-
+// TODO!!!!!!!??????
 // Mark the day that has an event using "this-number id+[index]"
 function markDay(thisDay) {
   console.log("in funktion " + thisDay);
@@ -182,7 +182,7 @@ function dateToCalederDay(clicktDay) {
   textCalenderDay = document.createTextNode(
     currentYear + "-" + addZeroToMonth + "-" + clicktDay
   );
-  dateCalenderDay.appendChild(textCalenderDay);  
+  dateCalenderDay.appendChild(textCalenderDay);
 }
 
 //
@@ -237,37 +237,67 @@ function hoverWindow() {
         ) {
           modal.insertAdjacentHTML(
             "beforeend",
-            "<div class=timme ><div class=eventTime ></div><div class=EventText ><div class=halfAnHour ></div><div class=halfAnHour ></div></div></div>"
+            "<div class=timme ><div class=eventTime ></div><div class=EventText ><div class=hour ></div></div></div>"
           );
         }
 
-        let halfAnHour = document.getElementsByClassName("halfAnHour");
+        let hour = document.getElementsByClassName("hour");
 
-        for (let index = 0; index < halfAnHour.length; index++) {
-          halfAnHour[index].addEventListener("dblclick", function () {
+        for (let index = 0; index < hour.length; index++) {
+          hour[index].addEventListener("dblclick", function () {
             let input = prompt("enter something");
 
             if (input !== null) {
               localStorage.setItem(index, input);
-              halfAnHour[index].textContent = localStorage.getItem(index);
+              hour[index].textContent = localStorage.getItem(index);
             }
           });
 
-          halfAnHour[index].textContent = localStorage.getItem(index);
+          hour[index].textContent = localStorage.getItem(index);
         }
 
-        for (let index = 0; index < halfAnHour.length; index++) {
-          halfAnHour[index].addEventListener("click", function () {
-            halfAnHour[index].textContent = localStorage.removeItem(index);
+        for (let index = 0; index < hour.length; index++) {
+          hour[index].addEventListener("click", function () {
+            hour[index].textContent = localStorage.removeItem(index);
           });
         }
-
-        for (
-          let index = 0;
-          index <= totalDaysInMonthFunc(monthModified, currentYear) - 1;
-          index++
-        ) {
-          document.querySelectorAll(".eventTime")[index].textContent = index;
+        // handels timetable
+        let timeTable = [
+          "06:00",
+          "06.30",
+          "07:00",
+          "07:30",
+          "08:00",
+          "08.30",
+          "09:00",
+          "09.30",
+          "10:00",
+          "10.30",
+          "11:00",
+          "11.30",
+          "12:00",
+          "12.30",
+          "13:00",
+          "13.30",
+          "14:00",
+          "14.30",
+          "15:00",
+          "15.30",
+          "16:00",
+          "16.30",
+          "17:00",
+          "17.30",
+          "18:00",
+          "18.30",
+          "19:00",
+          "19.30",
+          "20:00",
+          "20.30",
+          "21:00",
+        ];
+        for (let index = 0; index <= timeTable.length; index++) {
+          const timeLable = document.querySelectorAll(".eventTime");
+          timeLable[index].textContent = timeTable[index];
         }
       }
     });
