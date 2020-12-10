@@ -95,6 +95,10 @@ p {
   width: calc(490px / 7);
 }
 
+.date-calender{
+text-align: center;
+}
+
 .close-modal {
   position: absolute;
   top: 0.5rem;

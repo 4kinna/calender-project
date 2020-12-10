@@ -100,17 +100,17 @@ monthHeader.innerHTML = months[thisMonth];
 showCalender();
 showCalanderDays();
 
-// Räknar ut hur många dagar det finns i denna månad.
+// Calculates how many days there are in this month.
 function totalDaysInMonthFunc(monthModified, year) {
   return new Date(year, monthModified, -0).getDate();
 }
 
-// Tar reda på vilken vilket index den första veckodagen i månaden har, 0=söndag.
+// Finds out which index the first day of the week has, 0 = Sunday.
 function day() {
   return new Date(currentYear + "-" + monthModified + "-01").getDay();
 }
 
-// Skapar en div för varje dag (nummren) och tilldelar dem ett id-nummer och innehåll
+// Creates a div for each day (the numbers) and assigns them an ID number and content
 function daysToCalendar(dayId, text) {
   let newDiv = document.createElement("div");
   newDiv.setAttribute("id", dayId);
@@ -125,7 +125,7 @@ function blankDaysId(dayId) {
 function showCalanderDays() {
   const aktivYear = date.getFullYear();
   const aktivMonth = date.getMonth();
-  // Om första dagen i månaden är en söndag.
+  // If the first day of the month is a Sunday.
   if (day() === 0) {
     for (let index = 0; index < 6; index++) {
       daysToCalendar(blankDaysId([index]), " ");
@@ -136,7 +136,7 @@ function showCalanderDays() {
     }
   }
 
-  // Skapar månadens alla dagar (nummer)
+  // Creates all days of the month (number)
   for (
     let index = 1;
     index <= totalDaysInMonthFunc(monthModified, currentYear);
@@ -145,7 +145,7 @@ function showCalanderDays() {
     let dayNumberId = "this-number-id" + [index];
     daysToCalendar(dayNumberId, [index]);
   }
-  // Markera dagens dag
+  // Mark today's day
   if (date.getFullYear() === currentYear && date.getMonth() === thisMonth) {
     document.getElementById(
       "this-number-id" + dateToday
@@ -153,19 +153,37 @@ function showCalanderDays() {
   }
 }
 
-// Markera dag som har en händele med hjälp av "this-number id+[index]"
+// Mark the day that has an event using "this-number id+[index]"
 function markDay(thisDay) {
   console.log("in funktion " + thisDay);
   document.getElementById(thisDay).style.backgroundColor = "yellow";
 }
 
-// Simulerar input från kalenderbladet
+// Simulates input from the calendar sheet
 let mark = document.getElementById("this-number-id5").id;
 markDay(mark);
 let mark1 = document.getElementById("this-number-id10").id;
 markDay(mark1);
 let mark2 = document.getElementById("this-number-id24").id;
 markDay(mark2);
+
+// Generates the date in the day view
+function dateToCalederDay(clicktDay) {
+  let dateCalenderDay = document.getElementById("date-calender-day");
+  dateCalenderDay.textContent = "";
+  let textCalenderDay;
+  let addZeroToMonth = monthModified;
+  if (clicktDay < 10) {
+    clicktDay = "0" + clicktDay;
+  }
+  if (monthModified < 10) {
+    addZeroToMonth = "0" + monthModified;
+  }
+  textCalenderDay = document.createTextNode(
+    currentYear + "-" + addZeroToMonth + "-" + clicktDay
+  );
+  dateCalenderDay.appendChild(textCalenderDay);  
+}
 
 //
 //----------------------------------------------------------
@@ -207,6 +225,7 @@ function hoverWindow() {
     let click = document.querySelector(`#this-number-id${index}`);
 
     click.addEventListener("click", function () {
+      dateToCalederDay(click.textContent); // Added by Staffan
       for (let i = 0; i < hidden.length; i++) {
         hidden[i].style.display = "block";
         modal.innerHTML = "";
