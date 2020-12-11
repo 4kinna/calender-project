@@ -243,6 +243,12 @@ function hoverWindow() {
 
         let hour = document.getElementsByClassName("hour");
         let todayDateId = currentYear + "-" + thisMonth + "-" + click.textContent;
+        let markEvent = document.getElementById("days-number-id").onfocus = function() {color()};
+        //markEvent.addEventListener("focus", color, true)
+
+        function color(){
+          document.getElementById("this-number-id" + click.textContent).style.border = "solid yellow 1px";
+        }
 
         for (let index = 0; index < hour.length; index++) {
           hour[index].addEventListener("dblclick", function () {
@@ -250,10 +256,10 @@ function hoverWindow() {
 
             
             if (input !== null) {
-              localStorage.setItem(todayDateId + "-" + index, input,);
+              localStorage.setItem(todayDateId + "-" + index, input);
               hour[index].textContent = localStorage.getItem(todayDateId + "-" + index);
+              markEvent;
               //let markEvent = document.getElementById("this-number-id" + click.textContent).style.border = "solid yellow 1px";
-
 
             }
           });
