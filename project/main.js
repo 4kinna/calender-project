@@ -43,7 +43,7 @@ function showCalender() {
 //skapat en knapp som återställer datum 
 //till nuvarnde
 reset.addEventListener("click", function () {
-  window.location.reload(); 
+  window.location.reload();
 });
 
 
