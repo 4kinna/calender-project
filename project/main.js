@@ -11,6 +11,9 @@ let monthHeader = document.querySelector(".date h1");
 let navmonth = document.querySelectorAll(".changeMonth");
 let changeYear = document.getElementsByClassName("changeYear");
 let yearHeader = document.getElementById("year");
+let reset = document.querySelector(".reset");
+
+
 
 let months = [
   "January",
@@ -35,6 +38,22 @@ function showCalender() {
   let yearP = document.getElementById("year");
   yearP.innerHTML = currentYear;
 }
+
+
+//skapat en knapp som återställer datum 
+//till nuvarnde
+reset.addEventListener("click", function () {
+  window.location.reload(); 
+});
+
+
+/* function resetButton() {
+  window.location.reload();
+  //let test = document.getElementById("year");
+  //test.innerHTML = currentYear;
+  //monthHeader.innerHTML = months[thisMonth];
+} */
+
 
 //ändra år
 changeYear[0].addEventListener("click", function () {
@@ -105,26 +124,23 @@ function totalDaysInMonthFunc(monthModified, year) {
   return new Date(year, monthModified, -0).getDate();
 }
 
-// Finds out which index the first day of the week has, 0 = Sunday.
-function day() {
-  return new Date(currentYear + "-" + monthModified + "-01").getDay();
-}
-
-// Creates a div for each day (the numbers) and assigns them an ID number and content
-function daysToCalendar(dayId, text) {
-  let newDiv = document.createElement("div");
-  newDiv.setAttribute("id", dayId);
-  let textInDiv = document.createTextNode(text);
-  newDiv.appendChild(textInDiv);
-  element.appendChild(newDiv);
-}
-
-function blankDaysId(dayId) {
-  return "last-month-day-id" + dayId;
-}
 function showCalanderDays() {
-  const aktivYear = date.getFullYear();
-  const aktivMonth = date.getMonth();
+  // Finds out which index the first day of the week has, 0 = Sunday.
+  function day() {
+    return new Date(currentYear + "-" + monthModified + "-01").getDay();
+  }
+
+  // Creates a div for each day (the numbers) and assigns them an ID number and content
+  function daysToCalendar(dayId, text) {
+    let newDiv = document.createElement("div");
+    newDiv.setAttribute("id", dayId);
+    let textInDiv = document.createTextNode(text);
+    newDiv.appendChild(textInDiv);
+    element.appendChild(newDiv);
+  }
+  function blankDaysId(dayId) {
+    return "last-month-day-id" + dayId;
+  }
   // If the first day of the month is a Sunday.
   if (day() === 0) {
     for (let index = 0; index < 6; index++) {
@@ -151,21 +167,45 @@ function showCalanderDays() {
       "this-number-id" + dateToday
     ).style.backgroundColor = "red";
   }
-}
-// TODO!!!!!!!??????
-// Mark the day that has an event using "this-number id+[index]"
-function markDay(thisDay) {
-  console.log("in funktion " + thisDay);
-  document.getElementById(thisDay).style.backgroundColor = "yellow";
-}
 
-// Simulates input from the calendar sheet
-/* let mark = document.getElementById("this-number-id5").id;
-markDay(mark);
-let mark1 = document.getElementById("this-number-id10").id;
-markDay(mark1);
-let mark2 = document.getElementById("this-number-id24").id;
-markDay(mark2); */
+  // Mark days that got an event
+  if (localStorage.length > 0) {
+    let storedDaysArray = [];
+    for (let i = 0; i < localStorage.length; ++i) {
+      storedDaysArray[i] = localStorage.key(i);
+    }
+    let storedYear = [];
+    let storedMonth = [];
+    let storedDay = [];
+    for (let x = 0; x < storedDaysArray.length; x++) {
+      let tempYear = "";
+      for (let z = 0; z < 4; z++) {
+        tempYear += storedDaysArray[x].charAt(z);
+      }
+      storedYear[x] = tempYear;
+
+      let tempMonth = "";
+      for (let y = 5; y < 7; y++) {
+        if (storedDaysArray[x].charAt(y) !== "-")
+          tempMonth += storedDaysArray[x].charAt(y);
+      }
+      storedMonth[x] = tempMonth;
+
+      let tempDay = "";
+      for (let z = 8; z < 10; z++) {
+        if (storedDaysArray[x].charAt(z) !== "-")
+          tempDay += storedDaysArray[x].charAt(z);
+      }
+      storedDay[x] = tempDay;
+    }
+    for (let a = 0; a < storedYear.length; a++) {
+      if (currentYear == storedYear[a] && thisMonth == storedMonth[a]) {
+        document.getElementById("this-number-id" + storedDay[a]).style.color =
+          "darkOrange";
+      }
+    }
+  }
+}
 
 // Generates the date in the day view
 function dateToCalederDay(clicktDay) {
@@ -242,34 +282,31 @@ function hoverWindow() {
         }
 
         let hour = document.getElementsByClassName("hour");
-        let todayDateId = currentYear + "-" + thisMonth + "-" + click.textContent;
-        let markEvent = document.getElementById("days-number-id").onfocus = function() {color()};
-        //markEvent.addEventListener("focus", color, true)
-
-        function color(){
-          document.getElementById("this-number-id" + click.textContent).style.border = "solid yellow 1px";
-        }
+        let todayDateId =
+          currentYear + "-" + thisMonth + "-" + click.textContent;
 
         for (let index = 0; index < hour.length; index++) {
           hour[index].addEventListener("dblclick", function () {
             let input = prompt("enter something");
 
-            
             if (input !== null) {
               localStorage.setItem(todayDateId + "-" + index, input);
-              hour[index].textContent = localStorage.getItem(todayDateId + "-" + index);
-              markEvent;
-              //let markEvent = document.getElementById("this-number-id" + click.textContent).style.border = "solid yellow 1px";
-
+              hour[index].textContent = localStorage.getItem(
+                todayDateId + "-" + index
+              );
             }
           });
 
-          hour[index].textContent = localStorage.getItem(todayDateId + "-" + index);
+          hour[index].textContent = localStorage.getItem(
+            todayDateId + "-" + index
+          );
         }
 
         for (let index = 0; index < hour.length; index++) {
           hour[index].addEventListener("click", function () {
-            hour[index].textContent = localStorage.removeItem(todayDateId + "-" + index);
+            hour[index].textContent = localStorage.removeItem(
+              todayDateId + "-" + index
+            );
           });
         }
         // handels timetable
@@ -332,6 +369,9 @@ function hoverWindow() {
     for (let i = 0; i < hidden.length; i++) {
       hidden[i].style.display = "none";
     }
+    element.innerHTML = "";
+    showCalanderDays();
+    hoverWindow();
   }
 
   closeModal.addEventListener("click", close);
