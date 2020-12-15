@@ -13,8 +13,6 @@ let changeYear = document.getElementsByClassName("changeYear");
 let yearHeader = document.getElementById("year");
 let reset = document.querySelector(".reset");
 
-
-
 let months = [
   "January",
   "February",
@@ -39,13 +37,11 @@ function showCalender() {
   yearP.innerHTML = currentYear;
 }
 
-
-//skapat en knapp som återställer datum 
+//skapat en knapp som återställer datum
 //till nuvarnde
 reset.addEventListener("click", function () {
   window.location.reload();
 });
-
 
 /* function resetButton() {
   window.location.reload();
@@ -53,7 +49,6 @@ reset.addEventListener("click", function () {
   //test.innerHTML = currentYear;
   //monthHeader.innerHTML = months[thisMonth];
 } */
-
 
 //ändra år
 changeYear[0].addEventListener("click", function () {
@@ -289,7 +284,7 @@ function hoverWindow() {
           hour[index].addEventListener("dblclick", function () {
             let input = prompt("enter something");
 
-            if (input !== null) {
+            if (input.length > 2) {
               localStorage.setItem(todayDateId + "-" + index, input);
               hour[index].textContent = localStorage.getItem(
                 todayDateId + "-" + index
