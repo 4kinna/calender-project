@@ -133,6 +133,8 @@ function showCalanderDays() {
     newDiv.appendChild(textInDiv);
     element.appendChild(newDiv);
   }
+
+  // Generates the blank days in the calendar so that the 1:st is on right weekday
   function blankDaysId(dayId) {
     return "last-month-day-id" + dayId;
   }
@@ -163,7 +165,7 @@ function showCalanderDays() {
     ).style.backgroundColor = "red";
   }
 
-  // Mark days that got an event
+  // Mark days that got an event by divide local storage Key into useful data
   if (localStorage.length > 0) {
     let storedDaysArray = [];
     for (let i = 0; i < localStorage.length; ++i) {
@@ -247,7 +249,7 @@ function changeActivityColor(timetable, indexNr) {
   newDiv.appendChild(button);
   timetable.parentNode.insertBefore(newDiv, timetable.nextSibling);
 }
-
+// Sets or remove background color on chosen day event
 function colorTime(hour, todayDateId) {
   for (let i = 0; i < hour.length; i++) {
     let button = document.getElementById("button-" + i);
@@ -273,6 +275,8 @@ function colorTime(hour, todayDateId) {
   }
 }
 
+/*  When day event sheet is opened, divide local storage Key into useful data and compare with the date.
+    If there is a match on this day, reset background color to the color that have been chosen earlier. */
 function colorUpdate(thisDay) {
   if (localStorage.length > 0) {
     let storedDaysArray = [];
@@ -380,7 +384,7 @@ function hoverWindow() {
     let click = document.querySelector(`#this-number-id${index}`);
 
     click.addEventListener("click", function () {
-      dateToCalederDay(click.textContent); // Added by Staffan
+      dateToCalederDay(click.textContent);
       for (let i = 0; i < hidden.length; i++) {
         hidden[i].style.display = "block";
         modal.innerHTML = "";
