@@ -274,7 +274,7 @@ function hoverWindow() {
               localStorage.setItem(todayDateId + "-" + index, input);
               hour[index].textContent = localStorage.getItem(
                 todayDateId + "-" + index
-              );             
+              );
             }
           });
 
