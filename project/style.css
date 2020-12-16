@@ -176,7 +176,8 @@ p {
   width: 95%;
   border: solid rgb(211, 211, 211) 0.5px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  cursor: pointer;
 }
 
 .hour {
@@ -187,22 +188,31 @@ p {
   justify-content: left;
   align-items: center;
   padding-left: 3px;
+  width: 100%;
 }
 .hour:hover {
   background-color: green;
   color: white;
 }
 
-
-#button{
+#button {
   background-color: rgb(3, 44, 7);
   display: flex;
   justify-content: center;
   padding-top: 1rem;
 }
 
-#button :hover{
+#button :hover {
   background-color: black;
   color: whitesmoke;
 }
 
+.removeInput {
+  color: green;
+  font-size: 20px;
+  padding-right: 0.5px;
+  padding-top: 3px;
+}
+.removeInput:hover {
+  color: red;
+}

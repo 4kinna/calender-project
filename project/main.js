@@ -279,8 +279,20 @@ function hoverWindow() {
         let hour = document.getElementsByClassName("hour");
         let todayDateId =
           currentYear + "-" + thisMonth + "-" + click.textContent;
+        let removeSymbol = document.querySelectorAll(".EventText");
 
         for (let index = 0; index < hour.length; index++) {
+          removeSymbol[index].insertAdjacentHTML(
+            "beforeEnd",
+            `<div class=${todayDateId} >x</div>`
+          );
+
+          let hide = document.getElementsByClassName(todayDateId);
+          if (!localStorage.getItem(todayDateId + "-" + index)) {
+            hide[index].classList.add("hidden");
+          }
+
+          hide[index].classList.add("removeInput");
           hour[index].addEventListener("dblclick", function () {
             let input = prompt("enter something");
 
@@ -289,21 +301,30 @@ function hoverWindow() {
               hour[index].textContent = localStorage.getItem(
                 todayDateId + "-" + index
               );
+
+              hide[index].classList.remove("hidden");
             }
           });
 
           hour[index].textContent = localStorage.getItem(
             todayDateId + "-" + index
           );
+
+          hide[index].addEventListener("click", function () {
+            hour[index].textContent = localStorage.removeItem(
+              todayDateId + "-" + index
+            );
+            hide[index].classList.add("hidden");
+          });
         }
 
-        for (let index = 0; index < hour.length; index++) {
+        /* for (let index = 0; index < hour.length; index++) {
           hour[index].addEventListener("click", function () {
             hour[index].textContent = localStorage.removeItem(
               todayDateId + "-" + index
             );
           });
-        }
+        } */
         // handels timetable
         let timeTable = [
           "06:00",
