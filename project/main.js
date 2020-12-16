@@ -173,30 +173,32 @@ function showCalanderDays() {
     let storedMonth = [];
     let storedDay = [];
     for (let x = 0; x < storedDaysArray.length; x++) {
-      let tempYear = "";
-      for (let z = 0; z < 4; z++) {
-        tempYear += storedDaysArray[x].charAt(z);
-      }
-      storedYear[x] = tempYear;
+      if (storedDaysArray[x].length < 14) {
+        let tempYear = "";
+        for (let z = 0; z < 4; z++) {
+          tempYear += storedDaysArray[x].charAt(z);
+        }
+        storedYear[x] = tempYear;
 
-      let tempMonth = "";
-      for (let y = 5; y < 7; y++) {
-        if (storedDaysArray[x].charAt(y) !== "-")
-          tempMonth += storedDaysArray[x].charAt(y);
-      }
-      storedMonth[x] = tempMonth;
+        let tempMonth = "";
+        for (let y = 5; y < 7; y++) {
+          if (storedDaysArray[x].charAt(y) !== "-")
+            tempMonth += storedDaysArray[x].charAt(y);
+        }
+        storedMonth[x] = tempMonth;
 
-      let tempDay = "";
-      for (let z = 8; z < 10; z++) {
-        if (storedDaysArray[x].charAt(z) !== "-")
-          tempDay += storedDaysArray[x].charAt(z);
+        let tempDay = "";
+        for (let z = 8; z < 10; z++) {
+          if (storedDaysArray[x].charAt(z) !== "-")
+            tempDay += storedDaysArray[x].charAt(z);
+        }
+        storedDay[x] = tempDay;
       }
-      storedDay[x] = tempDay;
-    }
-    for (let a = 0; a < storedYear.length; a++) {
-      if (currentYear == storedYear[a] && thisMonth == storedMonth[a]) {
-        document.getElementById("this-number-id" + storedDay[a]).style.color =
-          "darkOrange";
+      for (let a = 0; a < storedYear.length; a++) {
+        if (currentYear == storedYear[a] && thisMonth == storedMonth[a]) {
+          document.getElementById("this-number-id" + storedDay[a]).style.color =
+            "darkOrange";
+        }
       }
     }
   }
@@ -218,6 +220,124 @@ function dateToCalederDay(clicktDay) {
     currentYear + "-" + addZeroToMonth + "-" + clicktDay
   );
   dateCalenderDay.appendChild(textCalenderDay);
+}
+let colorsArr = ["", "Red", "Green", "Blue", "Pink", "Yellow"];
+function changeActivityColor(timetable, indexNr) {
+  let newDiv = document.createElement("div");
+  newDiv.setAttribute("class", "activityDiv");
+
+  let selector = document.createElement("select");
+  selector.setAttribute("id", "selector-" + indexNr);
+  selector.setAttribute("class", "selector");
+
+  for (let i = 0; i < colorsArr.length; i++) {
+    let option = document.createElement("option");
+    option.value = colorsArr[i];
+    option.text = colorsArr[i];
+    option.style.backgroundColor = colorsArr[i];
+    selector.appendChild(option);
+  }
+
+  let button = document.createElement("button");
+  button.setAttribute("id", "button-" + indexNr);
+  button.setAttribute("class", "button");
+  button.textContent = "Select";
+  timetable.setAttribute("id", "eventTextId-" + indexNr);
+  newDiv.appendChild(selector);
+  newDiv.appendChild(button);
+  timetable.parentNode.insertBefore(newDiv, timetable.nextSibling);
+}
+
+function colorTime(hour, todayDateId) {
+  for (let i = 0; i < hour.length; i++) {
+    let button = document.getElementById("button-" + i);
+    button.addEventListener("click", function () {
+      let color = document.getElementById("selector-" + i).value;
+      if (color !== "") {
+        let colorThisEvent = document.getElementById("eventTextId-" + i);
+        colorThisEvent.style.backgroundColor = "white";
+        for (let j = 0; j < colorsArr.length; j++) {
+          localStorage.removeItem(todayDateId + "-" + i + "-" + colorsArr[j]);
+        }
+        colorThisEvent.style.backgroundColor = color;
+        localStorage.setItem(todayDateId + "-" + i + "-" + color, color);
+      }
+      if (color === "") {
+        document.getElementById("eventTextId-" + i).style.backgroundColor =
+          "white";
+        for (let j = 0; j < colorsArr.length; j++) {
+          localStorage.removeItem(todayDateId + "-" + i + "-" + colorsArr[j]);
+        }
+      }
+    });
+  }
+}
+
+function colorUpdate(thisDay) {
+  if (localStorage.length > 0) {
+    let storedDaysArray = [];
+    let storedYear = [];
+    let storedMonth = [];
+    let storedDay = [];
+    let storedIndex = [];
+    let storedColor = [];
+    for (let i = 0; i < localStorage.length; ++i) {
+      storedDaysArray[i] = localStorage.key(i);
+    }
+
+    for (let x = 0; x < storedDaysArray.length; x++) {
+      if (storedDaysArray[x].length > 14) {
+        let tempYear = "";
+        for (let z = 0; z < 4; z++) {
+          tempYear += storedDaysArray[x].charAt(z);
+        }
+        storedYear[x] = tempYear;
+
+        function findFunction(array, startPos, numberOfDach) {
+          let find = "";
+          let searchDach = 0;
+          let position = startPos;
+
+          for (let i = position; i < storedDaysArray[x].length; i++) {
+            if (storedDaysArray[x].charAt(i) == "-") {
+              if (numberOfDach === searchDach) {
+                break;
+              }
+              searchDach++;
+              position = i;
+            }
+          }
+
+          if (searchDach === numberOfDach) {
+            for (let z = position + 1; z < storedDaysArray[x].length; z++) {
+              if (storedDaysArray[x].charAt(z) === "-") {
+                break;
+              }
+              find += storedDaysArray[x].charAt(z);
+            }
+          }
+          array[x] = find;
+        }
+
+        findFunction(storedMonth, 3, 1);
+        findFunction(storedDay, 3, 2);
+        findFunction(storedIndex, 3, 3);
+        findFunction(storedColor, 3, 4);
+      }
+    }
+
+    for (let a = 0; a < storedYear.length; a++) {
+      if (
+        currentYear == storedYear[a] &&
+        thisMonth == storedMonth[a] &&
+        thisDay == storedDay[a]
+      ) {
+        document.getElementById(
+          "eventTextId-" + storedIndex[a]
+        ).style.backgroundColor = storedColor[a];
+      }
+    }
+  }
 }
 
 //
@@ -315,6 +435,15 @@ function hoverWindow() {
               todayDateId + "-" + index
             );
             hide[index].classList.add("hidden");
+            document.getElementById(
+              "eventTextId-" + index
+            ).style.backgroundColor = "white";
+
+            for (let j = 0; j < colorsArr.length; j++) {
+              localStorage.removeItem(
+                todayDateId + "-" + index + "-" + colorsArr[j]
+              );
+            }
           });
         }
 
@@ -361,10 +490,14 @@ function hoverWindow() {
         ];
         for (let tt = 0; tt <= timeTable.length; tt++) {
           let timeLable = document.querySelectorAll(".eventTime");
+          let event = document.querySelectorAll(".EventText");
           if (timeLable[tt] !== undefined) {
             timeLable[tt].textContent = timeTable[tt];
+            changeActivityColor(event[tt], tt);
           }
         }
+        colorTime(hour, todayDateId);
+        colorUpdate(click.textContent);
       }
     });
 
