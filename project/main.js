@@ -585,14 +585,8 @@ function hoverWindow() {
               todayDateId + "-" + index
             );
           });
-<<<<<<< HEAD
-        }
-
-        /**@@@@@@@@@@@@@@@@@ handels timetable @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ANNIKA */
-=======
         } */
         // handels timetable
->>>>>>> master
         let timeTable = [
           "06:00",
           "06.30",
