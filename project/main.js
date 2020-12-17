@@ -224,6 +224,7 @@ function dateToCalederDay(clicktDay) {
   dateCalenderDay.appendChild(textCalenderDay);
 }
 let colorsArr = ["", "Red", "Green", "Blue", "Pink", "Yellow"];
+
 function changeActivityColor(timetable, indexNr) {
   let newDiv = document.createElement("div");
   newDiv.setAttribute("class", "activityDiv");
@@ -343,6 +344,142 @@ function colorUpdate(thisDay) {
     }
   }
 }
+/**@@@@@@@@@@@@@@@@@ ICON function @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ANNIKA */
+
+/** Array with the icons */
+var iconArray = [
+  { id: "" },
+  { id: "svenska", path: "../Images/color/svenska.png" },
+  { id: "idrott", path: "../Images/color/sport.png" },
+  { id: "matte", path: "../Images/color/calc.png" },
+  { id: "kemi", path: "../Images/color/kemi.png" },
+  { id: "engelska", path: "../Images/color/eng.png" },
+  { id: "geografi", path: "../Images/color/geo.png" },
+  { id: "historia", path: "../Images/color/history.png" },
+  { id: "bild", path: "../Images/color/palette.png" },
+];
+
+/** creating Div to hold selection and button */
+function addIcons(timetable, indexNr) {
+  let iconDiv = document.createElement("div");
+  iconDiv.setAttribute("class", "iconDivChoice");
+
+  /** creating selection*/
+  let iconSelection = document.createElement("select");
+  iconSelection.setAttribute("id", "iconSelection-" + indexNr);
+  iconSelection.setAttribute("class", "iconSelection");
+
+  /** creating option */
+  for (let i = 0; i < iconArray.length; i++) {
+    let option = document.createElement("option");
+    option.value = iconArray[i].id;
+    option.text = iconArray[i].id;
+    iconSelection.appendChild(option);
+  }
+
+  /**creating button */
+  let button = document.createElement("button");
+  button.setAttribute("id", "iconButton-" + indexNr);
+  button.setAttribute("class", "iconButton");
+  button.textContent = "Icon";
+  timetable.setAttribute("id", "eventTextId-" + indexNr);
+  iconDiv.appendChild(iconSelection);
+  iconDiv.appendChild(button);
+  timetable.parentNode.insertBefore(iconDiv, timetable.nextSibling);
+}
+
+/**function to set icon to right time in timetable*/
+function iconTime(hour) {
+  let todayDateId = document.getElementById("date-calender-day").textContent;
+  for (let i = 0; i < hour.length; i++) {
+    let iconButton = document.getElementById("iconButton-" + i);
+    iconButton.addEventListener("click", function () {
+      let icon = document.getElementById("iconSelection-" + i).value;
+      let element = document.getElementById("icon-" + i);
+      if (icon !== "") {
+        let setIconToThisEvent = document.getElementById("eventTextId-" + i);
+
+        if (element !== null) {
+          element.remove();
+        }
+
+        for (let j = 0; j < iconArray.length; j++) {
+          localStorage.removeItem(
+            todayDateId + "-" + i + "-" + iconArray[j].id
+          );
+        }
+
+        let iconElement = document.createElement("img");
+        iconElement.setAttribute("id", "icon-" + i);
+
+        iconElement.src = iconArray.find((elem) => elem.id === icon).path;
+
+        localStorage.setItem(todayDateId + "-" + i + "-" + icon, icon);
+
+        setIconToThisEvent.parentNode.insertBefore(
+          iconElement,
+          setIconToThisEvent.nextSibling
+        );
+      }
+      if (icon === "") {
+        if (element !== null) {
+          element.remove();
+        }
+        for (let j = 0; j < iconArray.length; j++) {
+          localStorage.removeItem(
+            todayDateId + "-" + i + "-" + iconArray[j].id
+          );
+        }
+      }
+    });
+  }
+}
+
+/**keepIconActive updates timetable with icon images based on local storage key-value.*/
+function keepIconActive() {
+  let timePos = 31;
+  let keys = [];
+
+  let todayDateId = document.getElementById("date-calender-day").textContent;
+
+  /**Collects all keys from local storage.*/
+  for (let x = 0; x < localStorage.length; x++) {
+    keys[x] = localStorage.key(x);
+  }
+
+  /**Loop size of timePos*/
+  for (let i = 0; i < timePos; i++) {
+    let item = localStorage.getItem(keys[i]);
+
+    /**Controls that an element exists in the icon array with an id that match item */
+    if (
+      iconArray.find((elem) => elem.id === item) !== null &&
+      keys[i] !== undefined
+    ) {
+      let k = keys[i].split("-");
+      let storedDate = `${k[0]}-${k[1]}-${k[2]}`;
+      if (storedDate === todayDateId) {
+        let index = k[3]; // split the key to get the index position in timetable.
+        let iconElement = document.createElement("img");
+        iconElement.setAttribute("id", "icon-" + index);
+        let setIconToThisEvent = document.getElementById(
+          "eventTextId-" + index
+        );
+        let obj = iconArray.find((elem) => elem.id === item);
+
+        if (obj !== undefined) {
+          iconElement.src = obj.path;
+        }
+
+        setIconToThisEvent.parentNode.insertBefore(
+          iconElement,
+          setIconToThisEvent.nextSibling
+        );
+      }
+    }
+  }
+}
+/**@@@@@@@@@@@@@@@@@ ICON END @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ANNIKA */
 
 //
 //----------------------------------------------------------
@@ -498,10 +635,13 @@ function hoverWindow() {
           if (timeLable[tt] !== undefined) {
             timeLable[tt].textContent = timeTable[tt];
             changeActivityColor(event[tt], tt);
+            addIcons(event[tt], tt);
           }
         }
         colorTime(hour, todayDateId);
         colorUpdate(click.textContent);
+        iconTime(hour);
+        keepIconActive(click.textContent);
       }
     });
 
@@ -530,6 +670,7 @@ function hoverWindow() {
   closeModal.addEventListener("click", close);
   overlay.addEventListener("click", close);
 }
+
 hoverWindow();
 
 //----------------------------------------------------------
