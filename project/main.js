@@ -437,9 +437,12 @@ function iconTime(hour) {
 
 /**keepIconActive updates timetable with icon images based on local storage key-value.*/
 function keepIconActive() {
-  /**Collects all keys from local storage.*/
   let timePos = 31;
   let keys = [];
+
+  let todayDateId = document.getElementById("date-calender-day").textContent;
+
+  /**Collects all keys from local storage.*/
   for (let x = 0; x < localStorage.length; x++) {
     keys[x] = localStorage.key(x);
   }
@@ -453,20 +456,26 @@ function keepIconActive() {
       iconArray.find((elem) => elem.id === item) !== null &&
       keys[i] !== undefined
     ) {
-      let index = keys[i].split("-")[3]; // split the key to get the index position in timetable.
-      let iconElement = document.createElement("img");
-      iconElement.setAttribute("id", "icon-" + index);
-      let setIconToThisEvent = document.getElementById("eventTextId-" + index);
-      let obj = iconArray.find((elem) => elem.id === item);
+      let k = keys[i].split("-");
+      let storedDate = `${k[0]}-${k[1]}-${k[2]}`;
+      if (storedDate === todayDateId) {
+        let index = k[3]; // split the key to get the index position in timetable.
+        let iconElement = document.createElement("img");
+        iconElement.setAttribute("id", "icon-" + index);
+        let setIconToThisEvent = document.getElementById(
+          "eventTextId-" + index
+        );
+        let obj = iconArray.find((elem) => elem.id === item);
 
-      if (obj !== undefined) {
-        iconElement.src = obj.path;
+        if (obj !== undefined) {
+          iconElement.src = obj.path;
+        }
+
+        setIconToThisEvent.parentNode.insertBefore(
+          iconElement,
+          setIconToThisEvent.nextSibling
+        );
       }
-
-      setIconToThisEvent.parentNode.insertBefore(
-        iconElement,
-        setIconToThisEvent.nextSibling
-      );
     }
   }
 }
